@@ -8,9 +8,9 @@ import javax.persistence.Id;
 @Entity
 public class Movie {
 
-@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.TABLE)
+            Integer id;
 String name;
 String genre;
 
@@ -36,5 +36,10 @@ String genre;
 
     public void setGenre(String genre) {
         this.genre = genre;
+    }
+
+    @Override
+    public String toString(){
+        return this.getId() + ", " + this.getName() + ", " + this.getGenre();
     }
 }
