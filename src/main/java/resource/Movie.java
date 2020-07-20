@@ -30,4 +30,10 @@ String genre;
     public void setGenre(String genre) {
         this.genre = genre;
     }
+
+    @Override
+    public String toString(){
+        return this.getId() + ", " + this.getName() + ", " + this.getGenre();
+    }
+
 }

@@ -9,10 +9,12 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ClientResources {
 
-    public String addMovie(Movie movie){
+    public String addMovie(Movie movie, Integer rating){
         String url = "http://localhost:8081/movieservice/add";
 
         HttpHeaders headers = new HttpHeaders();
@@ -21,6 +23,7 @@ public class ClientResources {
         MultiValueMap<String, String> map= new LinkedMultiValueMap<String, String>();
         map.add("name", movie.getName());
         map.add("genre",movie.getGenre());
+        map.add("ratingS", rating.toString());
 
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(map, headers);
 
@@ -30,17 +33,18 @@ public class ClientResources {
         return response.getStatusCode().toString();
     }
 
-    public Movie[] getAllMovies(){
+    public Map<Movie,Integer> getAllMovies(){
         String url = "http://localhost:8081/movieservice/movies/all";
 
         RestTemplate restTemplate = new RestTemplate();
-        Movie[] movies = restTemplate.getForObject(url,Movie[].class);
 
-        return movies;
+        Map<Movie,Integer> result = new HashMap<>();
+
+        return restTemplate.getForObject(url,result.getClass());
 
     }
 
-    public Movie[] getMoviesByName(String name){
+    public Map<Movie,Integer> getMoviesByName(String name){
         String url = "http://localhost:8081/movieservice/movies/name";
 
         HttpHeaders headers = new HttpHeaders();
@@ -52,9 +56,9 @@ public class ClientResources {
 
 
         RestTemplate restTemplate = new RestTemplate();
-        Movie[] movies = restTemplate.getForObject(builder.toUriString(),Movie[].class,entity);
+        Map<Movie,Integer> result = new HashMap<>();
 
-        return movies;
+        return restTemplate.getForObject(builder.toUriString(),result.getClass(),entity);
 
     }
 
@@ -76,7 +80,7 @@ public class ClientResources {
 
     }
 
-    public String editMovieById(Integer id, String name, String genre){
+    public String editMovieById(Integer id, String name, String genre, Integer rating){
         String url = "http://localhost:8081/movieservice/movies/edit";
 
         HttpHeaders headers = new HttpHeaders();
@@ -85,7 +89,8 @@ public class ClientResources {
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url)
                 .queryParam("id", id)
                 .queryParam("name", name)
-                .queryParam("genre", genre);
+                .queryParam("genre", genre)
+                .queryParam("rating", rating);
         HttpEntity<?> entity = new HttpEntity<>(headers);
 
         RestTemplate restTemplate = new RestTemplate();

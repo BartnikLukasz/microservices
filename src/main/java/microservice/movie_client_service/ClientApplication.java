@@ -3,7 +3,7 @@ package microservice.movie_client_service;
 import resource.ClientResources;
 import resource.Movie;
 
-import java.util.Arrays;
+import java.util.*;
 
 public class ClientApplication {
 
@@ -11,21 +11,38 @@ public class ClientApplication {
 
         ClientResources client = new ClientResources();
 
-        Arrays.stream(client.getAllMovies())
-                .forEach(m -> {
-                    String s = m.getId() + ", " + m.getName() + ", " + m.getGenre();
-                    s = ClientResources.decodeResponse(s);
-                    System.out.println(s);
-                });
+        Map<Movie, Integer> results;
+        Movie movie = new Movie();
+        movie.setName("Movie6");
+        movie.setGenre("Thriller");
+        client.addMovie(movie,8);
 
-        client.deleteMovieById(8);
+        results = client.getAllMovies();
 
-        Arrays.stream(client.getAllMovies())
-                .forEach(m -> {
-                    String s = m.getId() + ", " + m.getName() + ", " + m.getGenre();
-                    s = ClientResources.decodeResponse(s);
-                    System.out.println(s);
-                });
+        Set<Movie> movies = results.keySet();
+        Collection<Integer> ratings = results.values();
+
+        Iterator<Movie> itrMovie = movies.iterator();
+        Iterator<Integer> itrRating = ratings.iterator();
+
+
+        while (itrMovie.hasNext()) {
+            System.out.println(itrMovie.next() + ", Rating: "+itrRating.next());
+        }
+
+
+        results = client.getAllMovies();
+
+        movies = results.keySet();
+        ratings = results.values();
+
+        itrMovie = movies.iterator();
+        itrRating = ratings.iterator();
+
+
+        while (itrMovie.hasNext()) {
+            System.out.println(itrMovie.next() + ", Rating: "+itrRating.next());
+        }
 
     }
 
