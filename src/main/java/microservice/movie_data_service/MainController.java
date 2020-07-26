@@ -34,7 +34,7 @@ public class MainController {
         movieRepository.save(movie);
 
         Integer rating = Integer.valueOf(ratingS);
-        String url = "http://localhost:8082/ratingservice/add";
+        String url = "http://MOVIE-RATING-SERVICE/ratingservice/add";
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
         MultiValueMap<String, Integer> map= new LinkedMultiValueMap<String, Integer>();
@@ -52,7 +52,7 @@ public class MainController {
         Iterable<Movie> tempMovies =  movieRepository.findAll();
         List<Integer> tempRatings = new ArrayList<Integer>();
 
-        String url = "http://localhost:8082/ratingservice/rating";
+        String url = "http://MOVIE-RATING-SERVICE/ratingservice/rating";
         HttpHeaders headers = new HttpHeaders();
         headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
         tempMovies.forEach(m->{
@@ -81,7 +81,7 @@ public class MainController {
         Iterable<Movie> tempMovies =  movieRepository.findAllByName(name);
         List<Integer> tempRatings = new ArrayList<Integer>();
 
-        String url = "http://localhost:8082/ratingservice/rating";
+        String url = "http://MOVIE-RATING-SERVICE/ratingservice/rating";
         HttpHeaders headers = new HttpHeaders();
         headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
         tempMovies.forEach(m->{
@@ -109,7 +109,7 @@ public class MainController {
         Iterable<Movie> tempMovies =  movieRepository.findAllByGenre(genre);
         List<Integer> tempRatings = new ArrayList<Integer>();
 
-        String url = "http://localhost:8082/ratingservice/rating";
+        String url = "http://MOVIE-RATING-SERVICE/ratingservice/rating";
         HttpHeaders headers = new HttpHeaders();
         headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
         tempMovies.forEach(m->{
@@ -139,7 +139,7 @@ public class MainController {
         editedMovie.setGenre(genre);
         movieRepository.save(editedMovie);
 
-        String url = "http://localhost:8082/ratingservice/edit";
+        String url = "http://MOVIE-RATING-SERVICE/ratingservice/edit";
         HttpHeaders headers = new HttpHeaders();
         headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url)
@@ -154,7 +154,7 @@ public class MainController {
     public @ResponseBody void deleteById(@RequestParam Integer id){
         movieRepository.deleteById(id);
 
-        String url = "http://localhost:8082/ratingservice/delete";
+        String url = "http://MOVIE-RATING-SERVICE/ratingservice/delete";
         HttpHeaders headers = new HttpHeaders();
         headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url)
