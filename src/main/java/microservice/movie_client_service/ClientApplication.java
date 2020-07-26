@@ -21,7 +21,7 @@ public class ClientApplication implements CommandLineRunner {
 
         Map<Movie, Integer> results;
         Movie movie = new Movie();
-        movie.setName("New Movie");
+        movie.setName("New Movie 2");
         movie.setGenre("Thriller");
 
 
@@ -40,7 +40,7 @@ public class ClientApplication implements CommandLineRunner {
             System.out.println(client.decodeResponse(s));
         }
 
-        client.addMovie(movie,7);
+        //client.addMovie(movie,1);
 
 
         results = client.getAllMovies();
