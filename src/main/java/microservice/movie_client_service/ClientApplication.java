@@ -1,11 +1,19 @@
 package microservice.movie_client_service;
 
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
 import resource.ClientResources;
 import resource.Movie;
 
 import java.util.*;
 
-public class ClientApplication {
+@Component
+public class ClientApplication implements CommandLineRunner {
+
+    @Override
+    public void run(String... args) throws Exception {
+        main(args);
+    }
 
     public static void main(String[] args) {
 
@@ -13,22 +21,26 @@ public class ClientApplication {
 
         Map<Movie, Integer> results;
         Movie movie = new Movie();
-        movie.setName("Movie6");
+        movie.setName("New Movie");
         movie.setGenre("Thriller");
-        client.addMovie(movie,8);
+
 
         results = client.getAllMovies();
 
         Set<Movie> movies = results.keySet();
         Collection<Integer> ratings = results.values();
 
+
         Iterator<Movie> itrMovie = movies.iterator();
         Iterator<Integer> itrRating = ratings.iterator();
 
 
         while (itrMovie.hasNext()) {
-            System.out.println(itrMovie.next() + ", Rating: "+itrRating.next());
+            String s = itrMovie.next() + ", Rating: "+itrRating.next();
+            System.out.println(client.decodeResponse(s));
         }
+
+        client.addMovie(movie,7);
 
 
         results = client.getAllMovies();
@@ -41,7 +53,8 @@ public class ClientApplication {
 
 
         while (itrMovie.hasNext()) {
-            System.out.println(itrMovie.next() + ", Rating: "+itrRating.next());
+            String s = itrMovie.next() + ", Rating: "+itrRating.next();
+            System.out.println(client.decodeResponse(s));
         }
 
     }
