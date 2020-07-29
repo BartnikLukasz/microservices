@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+//This controller is handling requests sent to it by movie data microservice
 @Controller
 @RequestMapping(path="/ratingservice")
 public class MainController {
