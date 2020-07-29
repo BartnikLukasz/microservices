@@ -16,6 +16,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.*;
 
+//This controller is responsible for handling requests for movie database and sending requests to another
+//microservice handling rating requests, which is discovered using eureka server
 @Controller
 @RequestMapping(path="/movieservice")
 public class MainController {
