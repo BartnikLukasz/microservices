@@ -1,19 +1,11 @@
 package microservice.movie_client_service;
 
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.stereotype.Component;
 import resource.ClientResources;
 import resource.Movie;
 
 import java.util.*;
 
-@Component
-public class ClientApplication implements CommandLineRunner {
-
-    @Override
-    public void run(String... args) throws Exception {
-        main(args);
-    }
+public class ClientApplication {
 
     public static void main(String[] args) {
 

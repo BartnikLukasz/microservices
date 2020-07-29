@@ -12,6 +12,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
+//Class with functions responsible for sending requests to first microservice
 public class ClientResources {
 
     public String addMovie(Movie movie, Integer rating){
@@ -62,7 +63,7 @@ public class ClientResources {
 
     }
 
-    public Movie[] getMoviesByGenre(String genre){
+    public Map<Movie,Integer> getMoviesByGenre(String genre){
         String url = "http://localhost:8081/movieservice/movies/genre";
 
         HttpHeaders headers = new HttpHeaders();
@@ -74,9 +75,9 @@ public class ClientResources {
 
 
         RestTemplate restTemplate = new RestTemplate();
-        Movie[] movies = restTemplate.getForObject(builder.toUriString(),Movie[].class,entity);
+        Map<Movie,Integer> result = new HashMap<>();
 
-        return movies;
+        return restTemplate.getForObject(builder.toUriString(),result.getClass(),entity);
 
     }
 
@@ -115,8 +116,6 @@ public class ClientResources {
 
         return  response.toString();
     }
-
-
 
 
     public static String decodeResponse(String response) {
